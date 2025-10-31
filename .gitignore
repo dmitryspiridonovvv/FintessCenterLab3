@@ -1,0 +1,26 @@
+﻿# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build
+bin/
+obj/
+Debug/
+Release/
+
+# Publish
+publish/
+*.pubxml
+*.publishproj
+
+# OS
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Logs
+*.log
+*.cache
