@@ -1,0 +1,35 @@
+name: .NET Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        dotnet: [ '8.0.x' ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+
+      - name: Restore and Build
+        run: |
+          echo "🔍 Searching for .sln files..."
+          find . -name "*.sln"
+          for sln in $(find . -name "*.sln"); do
+            echo "🚧 Building $sln ..."
+            dotnet restore "$sln"
+            dotnet build "$sln" --configuration Release --no-restore
+          done
